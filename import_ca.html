@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+<html>
+  <head>
+    <base target="_top">
+    <script>
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+      function handleFormSubmit(formObject) {
+        google.script.run.withSuccessHandler().accio_i(formObject);
+      }
+      function tornar(formObject) {
+        google.script.run.withSuccessHandler().barra(formObject);
+      }
+    </script>
+
+  </head>
+  <body>
+<p>S'importaran les dades d'una tasca de Classroom i es copiaran a la columna indicada</p>
+<form id="tasca" onsubmit="handleFormSubmit(this)">
+<div class="block form-group">Indica las tasca d'on vols importar les notes
+   <select name="combo_tasca">
+        <option value='0' selected>Selecciona una tasca</option>
+    <?  
+        var properties = PropertiesService.getDocumentProperties();
+        var cursid = properties.getProperty('cursid'); 
+        var response = Classroom.Courses.CourseWork.list(cursid);
+        if (response.courseWork.length > 0) {
+           for (i = 0; i < response.courseWork.length; i++) {
+             var tasca = response.courseWork[i];  
+             ?>
+                  <option value="<?= tasca.id?>" ><?= tasca.title ?></option>
+           <? } ?>
+       <? } ?>
+              </select>
+     </div>  
+     <p><input id="boto" class="action" type="submit" value="Importar al full"></p>
+     </form><p>
+     <form id="tasca" onsubmit="tornar(this)">
+        <p><input id="boto2" type="submit" value="Tornar" onclick=tornar()></p>
+     </form>
+  </body>
+</html>
+
+
