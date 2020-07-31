@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+<html>
+  <head>
+    <base target="_top">
+    <script>
+      // Prevent forms from submitting.
+      function preventFormSubmit() {
+        var forms = document.querySelectorAll('form');
+        for (var i = 0; i < forms.length; i++) {
+          forms[i].addEventListener('submit', function(event) {
+            event.preventDefault();
+          });
+        }
+      }
+      window.addEventListener('load', preventFormSubmit);
+      function handleFormSubmit(formObject) {
+        google.script.run.withSuccessHandler().accio(formObject);
+      }
+      function tornar(formObject) {
+        google.script.run.withSuccessHandler().barra(formObject);
+      }
+    </script>
+
+  </head>
+  <body>
+<p>A new assigment will be created in Classroom and grades will be added to students on the mailing list</p>
+<form id="tasca" onsubmit="handleFormSubmit(this)">
+<p>Specifies a name for assigment <input type="text" name="titol"></p>
+<p>Indicates a description for assigment<input type="text" name="descripcio"></p>
+<div class="block form-group">Maximum grade  
+     <select name="pmax" style="width: 40px;">
+       <? var punts = [10,20,30,40,50,60,70,80,90,100];
+          var properties = PropertiesService.getDocumentProperties();
+          var p_max = properties.getProperty('pmax');
+          for (var i=0;i<10;i++){
+             if (i== p_max/10 - 1){ ?>
+               <option value="<?= punts[i] ?>" selected><?= punts[i] ?></option>
+              <? }else{ ?>
+                <option value="<?= punts[i] ?>"><?= punts[i] ?></option>
+              <?}?>
+            <? } ?>
+      </select>  </div>
+     <p><input id="boto" class="action" type="submit" value="Export"></p>
+     </form><p>
+     <form id="tasca" onsubmit="tornar(this)">
+        <p><input id="boto2" type="submit" value="Back" onclick=tornar()></p>
+     </form>
+
+  </body>
+</html>
+
+
