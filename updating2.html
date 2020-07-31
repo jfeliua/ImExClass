@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<link rel="stylesheet" href="https://ssl.gstatic.com/docs/script/css/add-ons1.css">
+<html>
+  <head>
+    <base target="_top">
+  </head>
+  <body>
+      <h2 align="center"><? 
+  var properties = PropertiesService.getDocumentProperties();   
+  var nalum = properties.getProperty('nalum');  
+  var totalum = properties.getProperty('totalum');
+  if (!nalum.isNaN){
+    nalum = Math.round(nalum);
+    totalum = Math.round(totalum);
+  }; ?>
+  
+  <?= nalum?> / <?= totalum?></h2>
+    <p align="center"><img width="180" heigh="180" src="https://tecnocentres.org/up.gif"></p>
+  </body>
+</html>
+
+
